@@ -134,8 +134,6 @@ const createFood = async (req, res, next) => {
       throw error;
     }
 
-    const { title, category, quantity, pickupAddress, expiryTime, specialInstructions, image } = req.body;
-
     // Dummy geocoding for demonstration: Add random offsets to a central location (e.g. San Francisco)
     const baseLat = 37.7749;
     const baseLng = -122.4194;
