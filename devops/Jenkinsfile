@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out source code...'
+                // git 'https://github.com/your-repo/foodbridge.git'
+            }
+        }
+        
+        stage('Build Frontend') {
+            steps {
+                dir('frontend') {
+                    echo 'Installing frontend dependencies...'
+                    sh 'npm install'
+                    echo 'Building frontend...'
+                    sh 'npm run build'
+                }
+            }
+        }
+        
+        stage('Build Backend') {
+            steps {
+                dir('backend') {
+                    echo 'Installing backend dependencies...'
+                    sh 'npm install'
+                }
+            }
+        }
+        
+        stage('Docker Build & Deploy') {
+            steps {
+                dir('devops') {
+                    echo 'Building and starting containers...'
+                    sh 'docker-compose up -d --build'
+                }
+            }
+        }
+    }
+}
